@@ -13,6 +13,8 @@ function InputBox({
 }) {
   const amountId = useId();
 
+  console.log("currency select", onCurrencyChange);
+
   return (
     <div className={`bg-white p-3 rounded-lg text-sm flex ${className} `}>
       <div className="w-1/2">
@@ -29,7 +31,11 @@ function InputBox({
           onChange={(e) =>
             onAmountChange && onAmountChange(Number(e.target.value))
           }
-        />
+          style={{
+    WebkitAppearance: 'none',
+    margin: 0,
+    
+  }} />
       </div>
       <div className="w-1/2 flex flex-wrap justify-end text-right">
         <p className="text-black/40 mb-2 w-full">Currency Type</p>

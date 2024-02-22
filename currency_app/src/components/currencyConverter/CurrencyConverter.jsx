@@ -3,10 +3,10 @@ import { InputBox } from "../input";
 import useCurrencyHook from "../../hooks/useCurrencyHook";
 
 const CurrencyConverter = () => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [from, setFrom] = useState("usd");
   const [to, setTo] = useState("inr");
-  const [convertedAmount, setConvertedAmount] = useState(0);
+  const [convertedAmount, setConvertedAmount] = useState();
 
   const currencyInfo = useCurrencyHook(from);
   const options = Object.keys(currencyInfo);
@@ -17,8 +17,10 @@ const CurrencyConverter = () => {
     setAmount(convertedAmount);
   };
   const convert = () => {
+    console.log("convert call");
     setConvertedAmount(amount * currencyInfo[to]);
   };
+
   return (
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
@@ -39,9 +41,18 @@ const CurrencyConverter = () => {
                 label="From"
                 amount={amount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setTo(currency)}
+                // onCurrencyChange={(currency) => setTo(currency)}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 selectCurrency={from}
-                onAmountChange={(amount) => setAmount(amount)}
+                // onAmountChange={(amount) => setAmount(amount)}
+
+                onAmountChange={(amount) => {
+                  if (amount <= 0) {
+                    setAmount();
+                  } else {
+                    setAmount(amount);
+                  }
+                }}
               />
             </div>
             <div className="relative w-full h-0.5">
@@ -58,8 +69,8 @@ const CurrencyConverter = () => {
                 label="To"
                 amount={convertedAmount}
                 currencyOptions={options}
-                onCurrencyChange={(amount) => setAmount(amount)}
-                selectCurrency={from}
+                onCurrencyChange={(amount) => setTo(amount)}
+                selectCurrency={to}
               />
             </div>
             <button

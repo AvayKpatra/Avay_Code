@@ -1,14 +1,11 @@
-import "./App.css";
-import UserData from "./components/UserData";
-import 
 
-function App() {
+import UserData from "./components/UserData";
+const App = () => {
   return (
     <>
-      <h1>Graphql app</h1>
       <UserData />
     </>
   );
-}
+};
 
 export default App;
